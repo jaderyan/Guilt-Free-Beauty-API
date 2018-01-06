@@ -1,0 +1,26 @@
+{
+  "name": "chrome-extension",
+  "version": "1.0.0",
+  "description": "",
+  "main": "config.js",
+  "scripts": {
+    "test": "mocha --exit spec",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongoose": "^5.0.0-rc2"
+  },
+  "devDependencies": {
+    "eslint": "^4.14.0",
+    "nodemon": "^1.14.8",
+    "supertest": "^3.0.0",
+    "morgan": "^1.9.0",
+    "chai": "^4.1.2",
+    "mocha": "^4.1.0"
+  }
+}

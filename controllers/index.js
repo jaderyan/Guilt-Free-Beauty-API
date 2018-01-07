@@ -38,4 +38,26 @@ function removeCompany (req, res, next) {
     .catch(next);
 }
 
-module.exports = {getCompanies, getCompany, addCompany, removeCompany};
+function amendCompany (req, res, next) {
+  const company = req.params.company.split('+').join(' ');
+    
+  return Company.findOne({name: company})
+    .then((res) => {
+      const id = res._id;
+      return Company.findByIdAndUpdate(id);
+    })
+    .then((company) => {
+      if(req.body.website && req.body.name) {
+        company.website = req.body.website;
+        company.name = req.body.name;
+      }
+      else if (req.body.website) {
+        company.website = req.body.website;
+      }
+      else if (req.body.name) {
+        company.name = req.body.name;        
+      }
+      res.status(200).send(company);
+    });
+}
+module.exports = {getCompanies, getCompany, addCompany, removeCompany, amendCompany};

@@ -16,7 +16,22 @@ function getCompany (req, res, next) {
       res.send({company});
     })
     .catch(next);
+}
+
+function addCompany (req, res, next) {
+  const newCompany = new Company ({
+    name: req.body.name,
+    website: req.body.website
+  });
+  return Promise.all([newCompany, Company.insertMany([newCompany])])
+    .then(([newCompany]) => {
+      res.status(201).send(newCompany);
+    })
+    .catch(next);
+}
+
+function removeCompany (req, res, next) {
     
 }
 
-module.exports = {getCompanies, getCompany};
+module.exports = {getCompanies, getCompany, addCompany, removeCompany};

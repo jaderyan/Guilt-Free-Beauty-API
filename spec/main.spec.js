@@ -40,5 +40,20 @@ describe('/api', () => {
         });
     });
   });
+  describe('POST /api/companies/', () => {
+    it('adds a company to the database', () => {
+      const company = {name: 'By Terry', website: 'https://www.byterry.com/'}
+      return request
+        .post('/api/companies')
+        .send(company)
+        .expect(201)
+        .then(() => {
+          return request.get('/api/companies');
+        })
+        .then((res) => {
+          expect(res.body.companies.length).to.equal(4);
+        });
+    });
+  });
 });
 

@@ -20,8 +20,24 @@ describe('/api', () => {
   after(() => {
     mongoose.disconnect();
   });
-  describe('/api/companies', () => {
-    it('returns a list of all companies', () => {
+  describe('GET /api/companies', () => {
+    it('returns a list of all companies and status code of 200', () => {
+      return request
+        .get('/api/companies')
+        .expect(200)
+        .then((res) => {
+          expect(res.body.companies.length).to.equal(3);
+        });
+    });
+  });
+  describe('GET /api/companies/:company', () => {
+    it('returns details of the company specified', () => {
+      return request
+        .get('/api/companies/Barry+M')
+        .expect(200)
+        .then((res) => {
+          expect(res.body.company[0].name).to.equal('Barry M');
+        });
     });
   });
 });

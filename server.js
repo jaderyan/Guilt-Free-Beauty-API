@@ -5,9 +5,9 @@ mongoose.Promise = Promise;
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-
 const app = express();
 const config= require('./config');
+const router = require('./routes')
 const db = config.DB[process.env.NODE_ENV] || process.env.DB;
 
 mongoose.connect(db)
@@ -17,5 +17,7 @@ mongoose.connect(db)
 app.use(bodyParser.json());
 
 app.use(morgan('dev'));
+
+app.use('/api', router)
 
 module.exports = app;

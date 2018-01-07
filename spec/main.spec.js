@@ -14,7 +14,6 @@ describe('/api', () => {
       })
       .then((data) => {
         docs = data;
-        console.log(docs)
         return docs;
       });
   });
@@ -26,3 +25,4 @@ describe('/api', () => {
     });
   });
 });
+

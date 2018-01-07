@@ -1,13 +1,14 @@
 const router = require('express').Router();
 
-const {getCompanies, getCompany, addCompany, removeCompany} = require('../controllers');
+const {getCompanies, getCompany, addCompany, removeCompany, amendCompany} = require('../controllers');
 
 router.route('/')
   .get(getCompanies)
-  .post(addCompany)
-  .delete(removeCompany);
+  .post(addCompany);
 
 router.route('/:company')
-  .get(getCompany);
+  .get(getCompany)
+  .delete(removeCompany)
+  .patch(amendCompany);
 
 module.exports = router;

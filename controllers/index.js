@@ -31,7 +31,11 @@ function addCompany (req, res, next) {
 }
 
 function removeCompany (req, res, next) {
-    
+  const company = req.params.company.split('+').join(' ');
+
+  return Company.findOneAndRemove({name: company})
+    .then(res.status(200).send(`${company} has been removed from the database`))
+    .catch(next);
 }
 
 module.exports = {getCompanies, getCompany, addCompany, removeCompany};

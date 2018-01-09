@@ -54,6 +54,21 @@ describe('/api', () => {
           expect(res.body.companies.length).to.equal(4);
         });
     });
+    it.only('duplicates are not allowed to be added to the database', () => {
+      const company = {name: 'Bare Minerals', website: 'https://www.bareminerals.co.uk/'}
+      return request
+        .post('/api/companies')
+        .send(company)
+        .then((res) => {
+          expect(res.text).to.equal(`"${company.name} already exists in the database"`);
+        })
+        .then(() => {
+          return request.get('/api/companies');
+        })
+        .then((res) => {
+          expect(res.body.companies.length).to.equal(3);
+        });
+    });
   });
   describe('DELETE /api/companies/:company', () => {
     it('removes the specified company', () => {

@@ -23,7 +23,15 @@ function addCompany (req, res, next) {
     name: req.body.name,
     website: req.body.website
   });
-  return Promise.all([newCompany, Company.insertMany([newCompany])])
+  return Company.find({name: newCompany.name}).lean()
+    .then((company) => {
+      if(company) {
+        res.status(500).json(`${newCompany.name} already exists in the database`);
+      }
+      else {
+        return Promise.all([newCompany, Company.insertMany([newCompany])]);
+      }
+    })
     .then(([newCompany]) => {
       res.status(201).send(newCompany);
     })

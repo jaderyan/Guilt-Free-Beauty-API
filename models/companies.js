@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const CompanySchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   website: {
     type: String,

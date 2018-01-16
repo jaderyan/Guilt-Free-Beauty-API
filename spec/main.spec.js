@@ -33,7 +33,7 @@ describe('/api', () => {
   describe('GET /api/companies/:company', () => {
     it('returns details of the company specified', () => {
       return request
-        .get('/api/companies/Barry+M')
+        .get('/api/companies/Barry%20M')
         .expect(200)
         .then((res) => {
           expect(res.body.company[0].name).to.equal('Barry M');
@@ -46,7 +46,7 @@ describe('/api', () => {
       return request
         .post('/api/companies')
         .send(company)
-        .expect(201)
+        .expect(200)
         .then(() => {
           return request.get('/api/companies');
         })
@@ -54,13 +54,14 @@ describe('/api', () => {
           expect(res.body.companies.length).to.equal(4);
         });
     });
-    it.only('duplicates are not allowed to be added to the database', () => {
-      const company = {name: 'Bare Minerals', website: 'https://www.bareminerals.co.uk/'}
+    it('duplicates are not allowed to be added to the database', () => {
+      const company = {name: 'Bare Minerals', website: 'https://www.bareminerals.co.uk/'};
       return request
         .post('/api/companies')
         .send(company)
+        .expect(200)
         .then((res) => {
-          expect(res.text).to.equal(`"${company.name} already exists in the database"`);
+          expect(res.text).to.equal(`${company.name} already exists in the database`);
         })
         .then(() => {
           return request.get('/api/companies');
@@ -85,7 +86,7 @@ describe('/api', () => {
   });
   describe('PATCH /api/companies/:company', () => {
     it('amends the specified company', () => {
-      const amendment = {website: 'www.google.com'}
+      const amendment = {website: 'www.google.com'};
       return request
         .patch('/api/companies/Barry+M')
         .send(amendment)

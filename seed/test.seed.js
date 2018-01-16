@@ -8,7 +8,7 @@ function saveCompanies () {
     {name: 'Kat Von D',  website: 'https://www.katvondbeauty.com/'},
     {name: 'Barry M', website: 'https://www.barrym.com/'}
   ].map(company => new Company(company).save());
-  return Promise.all(companies)
+  return Promise.all(companies);
 }
 
 function saveTestData () {

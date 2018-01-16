@@ -1,7 +1,7 @@
 module.exports = {
   DB: {
     test: 'mongodb://localhost/cruelty-free-api-test',
-    development: PROD_MONGODB,
+    development: process.env.PROD_MONGODB,
   },
   PORT: {
     test: 3090,

@@ -5,7 +5,7 @@ function getCompanies(req, res, next) {
     .then(companies => {
       res.send({ companies });
     })
-    .catch(next);
+    .catch(err => next(err));
 }
 
 function getCompany(req, res, next) {
@@ -15,7 +15,7 @@ function getCompany(req, res, next) {
     .then(company => {
       company.length ? res.send({ company }) : res.status(404).json({ message: 'Company is not currently in the database' });
     })
-    .catch(next);
+    .catch(err => next(err));
 }
 
 function addCompany(req, res, next) {
@@ -24,9 +24,9 @@ function addCompany(req, res, next) {
 
   return Company.find({ name: company })
     .then(company => company.length ? res.status(400).send({ message: `${newCompany.name} already exists in the database` }) : newCompany)
-    .then(() => newCompany.save())
+    .then(newCompany.save())
     .then(company => res.send({ company }))
-    .catch(next);
+    .catch(err => next(err));
 }
 
 function removeCompany(req, res, next) {
@@ -34,7 +34,7 @@ function removeCompany(req, res, next) {
 
   return Company.findOneAndRemove({ name: company })
     .then(res.status(200).send({ message: `${company} has been removed from the database` }))
-    .catch(next);
+    .catch(err => next(err));
 }
 
 function amendCompany(req, res, next) {
@@ -45,7 +45,7 @@ function amendCompany(req, res, next) {
     .then(company => {
       res.status(200).send({ company });
     })
-    .catch(next);
+    .catch(err => next(err));
 }
 
 module.exports = { getCompanies, getCompany, addCompany, removeCompany, amendCompany };

@@ -87,15 +87,9 @@ describe('/api', () => {
       return request
         .post('/api/companies')
         .send(company)
-        .expect(200)
-        .then((res) => {
-          expect(res.text).to.equal(`${company.name} already exists in the database`);
-        })
-        .then(() => {
-          return request.get('/api/companies');
-        })
-        .then((res) => {
-          expect(res.body.companies.length).to.equal(3);
+        .expect(400)
+        .then(res => {
+          expect(res.body.message).to.equal(`${company.name} already exists in the database`);
         });
     });
   });

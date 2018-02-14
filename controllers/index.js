@@ -25,14 +25,7 @@ function addCompany(req, res, next) {
   });
 
   return Promise.all([newCompany, Company.find({ name: newCompany.name })])
-    .then(([newCompany, check]) => {
-      if (check.length > 0) {
-        res.send(`${newCompany.name} already exists in the database`);
-      }
-      else {
-        return newCompany.save();
-      }
-    })
+    .then(([newCompany, check]) => check.length > 0 ? res.status(400).send({message: `${newCompany.name} already exists in the database`}) : newCompany.save())
     .then((company) => {
       res.send({ company });
     })
@@ -43,7 +36,7 @@ function removeCompany(req, res, next) {
   const company = req.params.company.split('+').join(' ');
 
   return Company.findOneAndRemove({ name: company })
-    .then(res.status(200).send(`${company} has been removed from the database`))
+    .then(res.status(200).send({message: `${company} has been removed from the database`}))
     .catch(next);
 }
 

@@ -20,6 +20,16 @@ describe('/api', () => {
   after(() => {
     mongoose.disconnect();
   });
+  describe('GET /*', () => {
+    it('returns a 404 if the path is invalid', () => {
+      return request
+        .get('/test')
+        .expect(404)
+        .then(res => {
+          expect(res.body.error).to.equal('Invalid path');
+        });
+    });
+  });
   describe('GET /api/companies', () => {
     it('returns a list of all companies and status code of 200', () => {
       return request
@@ -94,7 +104,6 @@ describe('/api', () => {
         .then((res) => {
           expect(res.body.website).to.equal(amendment.website);
         });
-
     });
   });
 });

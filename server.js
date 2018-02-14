@@ -7,17 +7,18 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
 const config= require('./config');
-const router = require('./routes')
+const router = require('./routes');
 const db = config.DB[process.env.NODE_ENV] || process.env.DB;
+const cors = require('cors');
 
 mongoose.connect(db)
-  .then(console.log('Connected to', db))
+  .then(() => console.log('Connected to', db))
   .catch(err => console.log('Error connecting to database', err));
 
 app.use(bodyParser.json());
-
 app.use(morgan('dev'));
+app.use(cors());
 
-app.use('/api', router)
+app.use('/api', router);
 
 module.exports = app;

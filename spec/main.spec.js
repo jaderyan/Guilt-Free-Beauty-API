@@ -30,6 +30,16 @@ describe('/api', () => {
         });
     });
   });
+  describe('GET /api/*', () => {
+    it('returns a 404 if the path is invalid', () => {
+      return request
+        .get('/api/test')
+        .expect(404)
+        .then(res => {
+          expect(res.body.error).to.equal('Invalid path');
+        });
+    });
+  });
   describe('GET /api/companies', () => {
     it('returns a list of all companies and status code of 200', () => {
       return request
@@ -47,6 +57,14 @@ describe('/api', () => {
         .expect(200)
         .then((res) => {
           expect(res.body.company[0].name).to.equal('Barry M');
+        });
+    });
+    it('returns a status code of 404 if a company is not in the database', () => {
+      return request
+        .get('/api/companies/test')
+        .expect(404)
+        .then(res => {
+          expect(res.body.message).to.equal('Company is not currently in the database');
         });
     });
   });

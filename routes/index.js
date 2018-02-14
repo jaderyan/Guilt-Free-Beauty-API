@@ -3,9 +3,10 @@ const companiesRouter = require('./companies');
 
 router.use('/companies', companiesRouter);
 
-router.use((err, req, res, next) => {
-  res.status(500).json(err);
-  next();
+router.use('/*', (req, res, next) => {
+  const err = new Error('Invalid path');
+  err.statusCode = 404;
+  next(err);
 });
 
 module.exports = router;

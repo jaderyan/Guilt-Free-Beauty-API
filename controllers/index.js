@@ -12,8 +12,8 @@ function getCompany(req, res, next) {
   const company = req.params.company;
 
   return Company.find({ name: company }).lean()
-    .then((company) => {
-      res.send({ company });
+    .then(company => {
+      company.length ? res.send({ company }) : res.status(404).json({message: 'Company is not currently in the database'});
     })
     .catch(next);
 }

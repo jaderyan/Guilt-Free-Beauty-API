@@ -96,7 +96,7 @@ describe('/api', () => {
   describe('DELETE /api/companies/:company', () => {
     it('removes the specified company', () => {
       return request
-        .delete('/api/companies/Barry+M')
+        .delete('/api/companies/Barry%20M')
         .expect(200)
         .then(res => {
           expect(res.body.message).to.equal('Barry M has been removed from the database')
@@ -107,11 +107,11 @@ describe('/api', () => {
     it('amends the specified company', () => {
       const amendment = {website: 'www.google.com'};
       return request
-        .patch('/api/companies/Barry+M')
+        .patch('/api/companies/Barry%20M')
         .send(amendment)
         .expect(200)
-        .then((res) => {
-          expect(res.body.website).to.equal(amendment.website);
+        .then(res => {
+          expect(res.body.company.website).to.equal(amendment.website);
         });
     });
   });

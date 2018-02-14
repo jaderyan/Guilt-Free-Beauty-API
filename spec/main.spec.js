@@ -45,7 +45,7 @@ describe('/api', () => {
       return request
         .get('/api/companies')
         .expect(200)
-        .then((res) => {
+        .then(res => {
           expect(res.body.companies.length).to.equal(3);
         });
     });
@@ -55,7 +55,7 @@ describe('/api', () => {
       return request
         .get('/api/companies/Barry%20M')
         .expect(200)
-        .then((res) => {
+        .then(res => {
           expect(res.body.company[0].name).to.equal('Barry M');
         });
     });
@@ -75,11 +75,9 @@ describe('/api', () => {
         .post('/api/companies')
         .send(company)
         .expect(200)
-        .then(() => {
-          return request.get('/api/companies');
-        })
-        .then((res) => {
-          expect(res.body.companies.length).to.equal(4);
+        .then(res => {
+          expect(res.body.company.name).to.equal(company.name);
+          expect(res.body.company.website).to.equal(company.website);
         });
     });
     it('duplicates are not allowed to be added to the database', () => {

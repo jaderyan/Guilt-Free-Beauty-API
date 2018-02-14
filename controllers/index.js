@@ -1,8 +1,8 @@
 const Company = require('../models/companies');
 
 function getCompanies(req, res, next) {
-  return Company.find().lean()
-    .then((companies) => {
+  return Company.find()
+    .then(companies => {
       res.send({ companies });
     })
     .catch(next);
@@ -11,7 +11,7 @@ function getCompanies(req, res, next) {
 function getCompany(req, res, next) {
   const company = req.params.company;
 
-  return Company.find({ name: company }).lean()
+  return Company.find({ name: company })
     .then(company => {
       company.length ? res.send({ company }) : res.status(404).json({ message: 'Company is not currently in the database' });
     })

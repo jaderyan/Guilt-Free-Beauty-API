@@ -98,11 +98,8 @@ describe('/api', () => {
       return request
         .delete('/api/companies/Barry+M')
         .expect(200)
-        .then(() => {
-          return request.get('/api/companies');
-        })
-        .then((res) => {
-          expect(res.body.companies.length).to.equal(2);
+        .then(res => {
+          expect(res.body.message).to.equal('Barry M has been removed from the database')
         });
     });
   });

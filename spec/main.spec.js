@@ -68,11 +68,11 @@ describe('/api', () => {
         });
     });
   });
-  describe('POST /api/companies/', () => {
+  describe('POST /api/companies/:company', () => {
     it('adds a company to the database', () => {
       const company = {name: 'By Terry', website: 'https://www.byterry.com/'};
       return request
-        .post('/api/companies')
+        .post('/api/companies/By%20Terry')
         .send(company)
         .expect(200)
         .then(res => {
@@ -83,7 +83,7 @@ describe('/api', () => {
     it('duplicates are not allowed to be added to the database', () => {
       const company = {name: 'Bare Minerals', website: 'https://www.bareminerals.co.uk/'};
       return request
-        .post('/api/companies')
+        .post('/api/companies/Bare%20Minerals')
         .send(company)
         .expect(400)
         .then(res => {

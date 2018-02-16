@@ -19,7 +19,7 @@ function getCompany(req, res, next) {
 }
 
 function addCompany(req, res, next) {
-  const company = req.body.name;
+  const company = req.params.company;
   const newCompany = new Company(req.body);
 
   return Company.find({ name: company })

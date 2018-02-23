@@ -49,6 +49,22 @@ describe('/api', () => {
           expect(res.body.companies.length).to.equal(3);
         });
     });
+    it('if a query url is passed, returns a company matching that url', () => {
+      return request
+        .get('/api/companies?website=barrym.com')
+        .expect(200)
+        .then(res => {
+          expect(res.body.company.name).to.equal('Barry M');
+        });
+    });
+    it('if a query url is passed and there is no matching company returns a 404', () => {
+      return request
+        .get('/api/companies?website=google.com')
+        .expect(404)
+        .then(res => {
+          expect(res.body.error).to.equal('Company is not currently in the database');
+        });
+    });
   });
   describe('GET /api/companies/:company', () => {
     it('returns details of the company specified', () => {

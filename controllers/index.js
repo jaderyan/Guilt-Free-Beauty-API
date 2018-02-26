@@ -2,7 +2,7 @@ const Company = require('../models/companies');
 
 function getCompanies(req, res, next) {
   if (req.query.website) {
-    return Company.findOne({website: new RegExp(req.query.website)})
+    return Company.findOne({ website: new RegExp(req.query.website) })
       .then(company => {
         company ? res.send({ company }) : res.status(404).json({ error: 'Company is not currently in the database' });
       })
@@ -21,8 +21,8 @@ function getCompany(req, res, next) {
   const company = req.params.company;
 
   return Company.find({ name: company })
-    .then(company => {
-      company.length ? res.send({ company }) : res.status(404).json({ message: 'Company is not currently in the database' });
+    .then(([company]) => {
+      company ? res.send({ company }) : res.status(404).json({ message: 'Company is not currently in the database' });
     })
     .catch(err => next(err));
 }

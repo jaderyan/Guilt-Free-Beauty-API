@@ -72,7 +72,7 @@ describe('/api', () => {
         .get('/api/companies/Barry%20M')
         .expect(200)
         .then(res => {
-          expect(res.body.company[0].name).to.equal('Barry M');
+          expect(res.body.company.name).to.equal('Barry M');
         });
     });
     it('returns a status code of 404 if a company is not in the database', () => {
@@ -113,7 +113,7 @@ describe('/api', () => {
         .delete('/api/companies/Barry%20M')
         .expect(200)
         .then(res => {
-          expect(res.body.message).to.equal('Barry M has been removed from the database')
+          expect(res.body.message).to.equal('Barry M has been removed from the database');
         });
     });
   });

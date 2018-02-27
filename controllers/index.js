@@ -33,7 +33,9 @@ function addCompany(req, res, next) {
 
   return Company.find({ name: company })
     .then(company => company.length ? res.status(400).send({ message: `${newCompany.name} already exists in the database` }) : newCompany)
+    .catch(err => next(err))
     .then(newCompany.save())
+    .catch(err => next(err))
     .then(company => res.send({ company }))
     .catch(err => next(err));
 }

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guilt Free Beauty API</title>
+    <style>
+        body {
+            font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+        }
+
+        #guide code {
+            color: #c1002e !important;
+        }
+    </style>
+</head>
+<body id="guide">
+    <h1>Guilt Free Beauty</h1>
+    <h2>API Endpoints</h2>
+    <h3>GET <code>/api/companies</code></h3>
+    <p>Get all of the companies. If a website address query is given a company with that website URL will be returned. e.g. <code>/api/companies?website=barrym.com</code></p>
+    <h3>GET <code>/api/companies/:company</code></h3>
+    <p>Return details for a specified company.</p>
+    <h3>POST <code>/api/companies/:company</code></h3>
+    <p>Add a new company. This route requires a JSON object with a name and website key value pair e.g. <code>{"name": "New Company", "website": "https://www.newcompany.com/"}</code>.</p>
+    <h3>DELETE <code>/api/companies/:company</code></h3>
+    <p>Remove a company.</p>
+    <h3>PATCH <code>/api/companies/:company</code>
+    </h3>
+    <p>Modify an existing company. This route requires a JSON object with the changes e.g. <code>{"name": "New Company PLC"}</code>.</p>
+</body>
+</html>

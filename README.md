@@ -65,7 +65,7 @@ Testing was carried out using Mocha, Chai and Supertest
 ``` 
 GET /api/companies 
 ```
-Get all of the companies.
+Get all of the companies. If a website address query is given a company with that website URL will be returned. e.g. /api/companies?website=barrym.com
 
 ``` 
 GET /api/companies/:company

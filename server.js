@@ -6,19 +6,25 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const app = express();
-const config= require('./config');
+const config = require('./config');
 const router = require('./routes');
 const db = config.DB[process.env.NODE_ENV] || process.env.DB;
 const cors = require('cors');
 
-mongoose.connect(db)
+mongoose
+  .connect(db, {
+    useCreateIndex: true,
+    useNewUrlParser: true
+  })
   .then(() => console.log('Connected to', db))
   .catch(err => console.log('Error connecting to database', err));
+
+mongoose.set('useFindAndModify', false);
 
 app.use(bodyParser.json());
 app.use(morgan('dev'));
 app.use(cors());
-app.use('/',express.static('public'));
+app.use('/', express.static('public'));
 app.use('/api', router);
 
 app.use('/*', (req, res, next) => {
@@ -28,7 +34,7 @@ app.use('/*', (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  res.status(err.statusCode).json({error: err.message});
+  res.status(err.statusCode).json({ error: err.message });
   next();
 });
 
